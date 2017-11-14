@@ -309,9 +309,14 @@ sign(Key=#jose_jwk{}, PlainText, Header, JWS=#jose_jws{alg={ALGModule, ALG}})
 	Payload = base64url:encode(PlainText),
 	SigningInput = signing_input(PlainText, Protected, NewJWS),
 	erlang:display("jose_jws.erl ----------------------------------------"),
-	erlang:display(Key),
-	erlang:display(SigningInput),
-	erlang:display(NewALG),
+	erlang:display(ALGModule),
+
+	% erlang:display(Key),
+	% {jose_jwk,undefined,{jose_jwk_kty_rsa,{'RSAPublicKey',112928089784685814920546175293904769764427098641843672837926524071175786256697227887211316582119182185012926804886058372482201906851950509225902542880745986525681119660779242338774057854291288520347397775172330632952050381855624645551216844139718931426071663528685937411640535444478096084373465492715749280221,65537}},#{<<"kid">>=><<"444C8AC5-3751-4201-B55C-71C975AF3051">>}}
+	% erlang:display(SigningInput),
+	% <<"eyJhbGciOiJSUzI1NiJ9.VGhpcyBpcyB0aGUgcGF5bG9hZC4">>
+	% erlang:display(NewALG),
+	% 'RS256'
 	erlang:display("jose_jws.erl ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"),
 	Signature = base64url:encode(ALGModule:sign(Key, SigningInput, NewALG)),
 	{Modules, maps:put(<<"payload">>, Payload, signature_to_map(Protected, Header, Key, Signature))};
