@@ -297,11 +297,12 @@ sign(Key=#jose_jwk{}, PlainText, Header, JWS=#jose_jws{alg={ALGModule, ALG}})
 		when is_binary(PlainText)
 		andalso is_map(Header) ->
 	_ = code:ensure_loaded(ALGModule),
-	io:format("jose_jws.erl ----------------------------------------"),
-	io:format(Key),
-	io:format(PlainText),
-	io:format(Header),
-	io:format(JWS),
+	erlang:display("jose_jws.erl ----------------------------------------"),
+	erlang:display(Key),
+	erlang:display(PlainText),
+	erlang:display(Header),
+	erlang:display(JWS),
+	erlang:display("jose_jws.erl ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"),
 	NewALG = case erlang:function_exported(ALGModule, presign, 2) of
 		false ->
 			ALG;
