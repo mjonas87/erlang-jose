@@ -59,9 +59,11 @@ generate_key('RS512', _Fields) ->
 	jose_jws_alg:generate_key({rsa, 4096}, <<"RS512">>).
 
 sign(#jose_jwk{kty={KTYModule, KTY}}, Message, ALG) ->
-	erlang:display("FUCK-------"),
-	erlang:display(KTYModule),
-	erlang:display("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^this shit"),
+	erlang:display("jose_jws_alg_rsa_pkcs1_v1_5-------------------"),
+	erlang:display(Message),
+	erlang:display(ALG),
+	erlang:display(KTY),
+	erlang:display("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^jose_jws_alg_rsa_pkcs1_v1_5"),
 	KTYModule:sign(Message, ALG, KTY).
 
 verify(#jose_jwk{kty={KTYModule, KTY}}, Message, Signature, ALG) ->
