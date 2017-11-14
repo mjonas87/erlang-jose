@@ -308,6 +308,7 @@ sign(Key=#jose_jwk{}, PlainText, Header, JWS=#jose_jws{alg={ALGModule, ALG}})
 	Protected = base64url:encode(ProtectedBinary),
 	Payload = base64url:encode(PlainText),
 	SigningInput = signing_input(PlainText, Protected, NewJWS),
+	1/0
 	Signature = base64url:encode(ALGModule:sign(Key, SigningInput, NewALG)),
 	{Modules, maps:put(<<"payload">>, Payload, signature_to_map(Protected, Header, Key, Signature))};
 sign(Key=none, PlainText, Header, JWS=#jose_jws{alg={ALGModule, ALG}})
