@@ -203,8 +203,11 @@ encrypt_public(PlainText, Options, #'RSAPrivateKey'{modulus=Modulus, publicExpon
 %%====================================================================
 
 sign(Message, JWSALG, RSAPrivateKey=#'RSAPrivateKey'{}) ->
-	io:fwrite("TURKEYS!!!!!!!!!!!!!!!!!!!!!!!!"),
-	io:fwrite(Message),
+	erlang:display("jose_jwk_kty_rsa.erl ----------------------------------------"),
+	erlang:display(Message),
+	erlang:display(JWSALG),
+	erlang:display(RSAPrivateKey),
+	erlang:display("jose_jwk_kty_rsa.erl ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"),
 	{Padding, DigestType} = jws_alg_to_digest_type(JWSALG),
 	jose_jwa:sign(Message, DigestType, RSAPrivateKey, Padding).
 

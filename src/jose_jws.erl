@@ -297,12 +297,6 @@ sign(Key=#jose_jwk{}, PlainText, Header, JWS=#jose_jws{alg={ALGModule, ALG}})
 		when is_binary(PlainText)
 		andalso is_map(Header) ->
 	_ = code:ensure_loaded(ALGModule),
-	erlang:display("jose_jws.erl ----------------------------------------"),
-	erlang:display(Key),
-	erlang:display(PlainText),
-	erlang:display(Header),
-	erlang:display(JWS),
-	erlang:display("jose_jws.erl ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"),
 	NewALG = case erlang:function_exported(ALGModule, presign, 2) of
 		false ->
 			ALG;
@@ -314,6 +308,11 @@ sign(Key=#jose_jwk{}, PlainText, Header, JWS=#jose_jws{alg={ALGModule, ALG}})
 	Protected = base64url:encode(ProtectedBinary),
 	Payload = base64url:encode(PlainText),
 	SigningInput = signing_input(PlainText, Protected, NewJWS),
+	erlang:display("jose_jws.erl ----------------------------------------"),
+	erlang:display(Key),
+	erlang:display(SigningInput),
+	erlang:display(NewALG),
+	erlang:display("jose_jws.erl ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"),
 	Signature = base64url:encode(ALGModule:sign(Key, SigningInput, NewALG)),
 	{Modules, maps:put(<<"payload">>, Payload, signature_to_map(Protected, Header, Key, Signature))};
 sign(Key=none, PlainText, Header, JWS=#jose_jws{alg={ALGModule, ALG}})
