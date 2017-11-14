@@ -203,9 +203,8 @@ encrypt_public(PlainText, Options, #'RSAPrivateKey'{modulus=Modulus, publicExpon
 %%====================================================================
 
 sign(Message, JWSALG, RSAPrivateKey=#'RSAPrivateKey'{}) ->
-	io:fwrite("TURKEYS!!!!!!!!!!!!!!!!!!!!!!!!").
-	io:fwrite(Message).
-
+	io:fwrite("TURKEYS!!!!!!!!!!!!!!!!!!!!!!!!"),
+	io:fwrite(Message),
 	{Padding, DigestType} = jws_alg_to_digest_type(JWSALG),
 	jose_jwa:sign(Message, DigestType, RSAPrivateKey, Padding).
 
